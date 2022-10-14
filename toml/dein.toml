@@ -1,0 +1,191 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+
+[[plugins]]
+repo = 'kana/vim-operator-user'
+[[plugins]]
+repo = 'rhysd/vim-operator-surround'
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+hook_add = '''
+" operator mappings
+map        <silent>sa             <Plug>(operator-surround-append)
+map        <silent>sd             <Plug>(operator-surround-delete)
+map        <silent>sr             <Plug>(operator-surround-replace)
+omap       ab                     <Plug>(textobj-multiblock-a)
+omap       ib                     <Plug>(textobj-multiblock-i)
+vmap       ab                     <Plug>(textobj-multiblock-a)
+vmap       ib                     <Plug>(textobj-multiblock-i)
+
+" if you use vim-textobj-multiblock
+nmap <silent>sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
+nmap <silent>srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
+'''
+
+[[plugins]]
+repo = 'kana/vim-textobj-syntax'
+[[plugins]]
+repo = 'thinca/vim-textobj-between'
+[[plugins]]
+repo = 'osyo-manga/vim-textobj-multiblock'
+[[plugins]]
+repo = 'kana/vim-textobj-entire'
+hook_add = '''
+let g:textobj_entire_no_default_key_mappings = 1
+omap av <Plug>(textobj-entire-a)
+omap iv <Plug>(textobj-entire-i)
+xmap av <Plug>(textobj-entire-a)
+xmap iv <Plug>(textobj-entire-i)
+'''
+
+[[plugins]]
+repo = 'https://github.com/fuenor/jpmoveword.vim'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+# Snippet =======================================
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+hook_add= '''
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+if has('conceal')
+  set conceallevel=0 concealcursor=niv
+endif
+let g:neosnippet#snippets_directory=expand('~/.config/nvim/NeoSnips')
+'''
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+# git ===========================================
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+hook_add = '''
+"gitgutter
+let g:gitgutter_preview_win_floating = 0
+let g:gitgutter_map_keys = 0
+
+nmap <Leader>hs <Plug>(GitGutterStageHunk)
+nmap <Leader>hu <Plug>(GitGutterUndoHunk)
+nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
+nmap ]h         <Plug>(GitGutterNextHunk)
+nmap [h         <Plug>(GitGutterPrevHunk)
+omap ih         <Plug>(GitGutterTextObjectInnerPending)
+omap ah         <Plug>(GitGutterTextObjectOuterPending)
+xmap ih         <Plug>(GitGutterTextObjectInnerVisual)
+xmap ah         <Plug>(GitGutterTextObjectOuterVisual)
+
+" vim-fugitive
+nnoremap <leader>gs <CMD>Git<CR>
+nnoremap <leader>ga <CMD>Gwrite<CR>
+nnoremap <leader>gc <CMD>Git commit<CR>
+nnoremap <leader>gb <CMD>Git blame<CR>
+nnoremap <leader>gl <CMD>Gclog<CR>
+nnoremap <leader>gp <CMD>Gpush<CR>
+nnoremap <leader>gf <CMD>Gfetch<CR>
+nnoremap <leader>gd <CMD>Gvdiffsplit<CR>
+nnoremap <leader>gr <CMD>Git rebase<CR>
+nnoremap <leader>gg <CMD>Glgrep ""<Left>
+nnoremap <leader>gm <CMD>Git merge
+'''
+
+# ctag ==========================================
+
+[[plugins]]
+repo = 'soramugi/auto-ctags.vim'
+hook_add = '''
+let g:auto_ctags_set_tags_option=1
+'''
+[[plugins]]
+repo = 'majutsushi/tagbar.git'
+hook_add = '''
+nmap <leader>t :TagbarToggle<CR>
+let g:tagbar_type_go = {
+  \ 'ctagstype' : 'go',
+  \ 'kinds'     : [
+  \   'p:package',
+  \   'i:imports:1',
+  \   'c:constants',
+  \   'v:variables',
+  \   't:types',
+  \   'n:interfaces',
+  \   'w:fields',
+  \   'e:embedded',
+  \   'm:methods',
+  \   'r:constructor',
+  \   'f:functions'
+  \ ],
+  \ 'sro' : '.',
+  \ 'kind2scope' : {
+  \   't' : 'ctype',
+  \   'n' : 'ntype'
+  \ },
+  \ 'scope2kind' : {
+  \   'ctype' : 't',
+  \   'ntype' : 'n'
+  \ },
+  \ 'ctagsbin'  : 'gotags',
+  \ 'ctagsargs' : '-sort -silent'
+  \ }
+'''
+
+# others ========================================
+
+[[plugins]]
+repo = 'glidenote/memolist.vim'
+hook_add = '''
+let g:memolist_path="$MEMO_DIR"
+let g:memolist_memo_date = "%Y%m%d-%H%M"
+let g:memolist_vimfiler_option = "-split -winwidth=50 -simple"
+let g:memolist_memo_suffix = "md"
+let g:memolist_filename_date = "%y%m%d_"
+let g:memolist_delimiter_yaml_start = "---"
+let g:memolist_delimiter_yaml_end  = "---"
+
+let g:memolist_memo_suffix = "md"
+let g:memolist_template_dir_path = g:vim_home_dir . "/template"
+
+map <Leader><Leader>mn  :MemoNew<CR>
+map <Leader><Leader>ml  :MemoList<CR>
+map <Leader><Leader>mg  :MemoGrep<CR>
+'''
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+hook_add = '''
+nmap <space>b <Plug>(openbrowser-smart-search)
+vmap <space>b <Plug>(openbrowser-smart-search)
+'''
+
+# translate =====================================
+
+[[plugins]]
+repo = 'skanehira/translate.vim'
+hook_add = '''
+let g:translate_source = "en"
+let g:translate_target = "ja"
+let g:translate_popup_window = 0
+let g:translate_winsize = 10
+
+function! s:swap_translate_language()
+  let l:temp = g:translate_target
+  let g:translate_target = g:translate_source
+  let g:translate_source = l:temp
+endfunction
+
+function! s:check_translate_language()
+  echo(g:translate_source . "->" . g:translate_target)
+endfunction
+
+command! SwapTransrateLang call s:swap_translate_language()
+command! CheckTransrateLang call s:check_translate_language()
+'''
